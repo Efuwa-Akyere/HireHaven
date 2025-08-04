@@ -1,0 +1,94 @@
+import { NavLink } from "react-router";
+import { FaPeopleGroup } from "react-icons/fa6";
+import { BsFillPeopleFill } from "react-icons/bs";
+import { IoStatsChart } from "react-icons/io5";
+import { TbLogout2 } from "react-icons/tb";
+
+const Sidebar = () => {
+  return (
+    <div className='drawer lg:drawer-open min-h '>
+      <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content flex flex-col items-center justify-center">
+        {/* Page content here */}
+        <label
+          htmlFor="my-drawer-2"
+          className="btn btn-primary drawer-button lg:hidden"
+        >
+          Open drawer
+        </label>
+      </div>
+      <div className="drawer-side ">
+        <label
+          htmlFor="my-drawer-2"
+          aria-label="close sidebar"
+          className="drawer-overlay "
+        ></label>
+        <ul className='menu text-base-content min-h-full w-80 p-4 gap-y-5  '>
+          {/* Sidebar content here */}
+          <li>
+            <div>
+          <p className="font-medium text-sm ">
+            HIRE
+            <span className="text-[#0000FF] text-xl font-bold">HAVEN</span>
+          </p>
+        </div>
+          </li>
+          <li>
+            <NavLink
+              to={"applicants"}
+              className={({ isActive }) =>
+                isActive ? "bg-blue-900 text-white" : "text-[#0000FF]"
+              }
+            >
+              <div className="flex gap-2">
+                <BsFillPeopleFill size={20}/>
+                <p className="self-center font-medium">Applicants</p>
+              </div>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to={"employers"}
+              className={({ isActive }) =>
+                isActive ? "bg-blue-900 text-white" : "text-[#0000FF]"
+              }
+            >
+             <div className="flex gap-2">
+                <FaPeopleGroup size={20}/>
+                <p className="self-center font-medium">Employers</p>
+              </div>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to={"statistics"}
+              className={({ isActive }) =>
+                isActive ? "bg-blue-900 text-white" : "text-[#0000FF]"
+              }
+            >
+             <div className="flex gap-2">
+                <IoStatsChart size={20}/>
+                <p className="self-center font-medium">Statistics</p>
+              </div>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to={"/"}
+              className={({ isActive }) =>
+                isActive ? "bg-blue-900 text-white" : "text-[#0000FF]"
+              }
+            >
+              <div className="flex gap-2">
+                <TbLogout2 size={20}/>
+                <p className="self-center font-medium">LogOut</p>
+              </div>
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+export default Sidebar
