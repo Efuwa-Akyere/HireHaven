@@ -9,6 +9,13 @@ import ESignup from './components/Employer/ESignup.jsx'
 import ELogin from './components/Employer/ELogin.jsx'
 import ASignup from './components/Admin/ASignup.jsx'
 import ALogin from './components/Admin/ALogin.jsx'
+import Sidebar from './components/sidebar.jsx';
+import RootLayout from './layout/RootLayout.jsx';
+import Applicants from './pages/adminDashboard/components/Applicants.jsx';
+import Employers from './pages/adminDashboard/components/Employers.jsx';
+import Statistics from './pages/adminDashboard/components/Statistics.jsx';
+import Welcome from './pages/adminDashboard/Welcome.jsx';
+
 
 
 
@@ -43,6 +50,28 @@ function App() {
       path: 'alogin',
       element: <ALogin />
     },
+    {
+      path: 'rootlayout',
+      element: <RootLayout />,
+      children:[
+        {
+          index: true,
+          element: <Welcome />
+        },
+        {
+        path: 'applicants',
+        element: <Applicants />
+        },
+        {
+          path: 'employers',
+          element: <Employers />
+        },
+        {
+          path: 'statistics',
+          element: <Statistics />
+        }
+      ]
+    }
   ]);
 
   return <RouterProvider router={router}/>

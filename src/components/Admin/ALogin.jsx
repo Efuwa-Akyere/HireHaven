@@ -64,9 +64,9 @@ const ALogin = () => {
               </button>
             </div>
             </form>
-            <div className="bg-[#1b1ba3] text-white flex justify-center font-bold rounded-lg h-10 w-full cursor-pointer">
+            <Link to={'/rootlayout'} className="bg-[#1b1ba3] text-white flex justify-center font-bold rounded-lg h-10 w-full cursor-pointer">
               <button className="cursor-pointer">Log In</button>
-            </div>
+            </Link>
             <ul className="flex gap-1  mt-4">
               <li>Don't have an account?</li>
               <Link to={'/asignup'} className="text-[#0000FF]">Sign Up</Link>
