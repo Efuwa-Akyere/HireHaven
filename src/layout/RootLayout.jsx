@@ -1,20 +1,22 @@
 import React from 'react'
 import Navbar from '../pages/homePage/components/Navbar'
 import { Outlet } from 'react-router-dom'
-import Sidebar from '../components/sidebar'
+import Sidebar from '../components/Sidebar'
 
 const RootLayout = () => {
   return (
-    <div>
+    <div className='min-h-screen bg-[#E7EAFC]'>
+      <div className='flex flex-col lg:flex-row'>
         
-        <div className='flex bg-[#E7EAFC]'>
-            <div className='flex-1/4 bg-white m-5'>
-            <Sidebar />
+        <div className='lg:w-1/4 w-full'>
+          <Sidebar />
         </div>
-        <div className='flex-3/4  flex justify-center'>
-            <Outlet />
+
+      
+        <div className='lg:w-3/4 w-full'>
+          <Outlet />
         </div>
-        </div>
+      </div>
     </div>
   )
 }
