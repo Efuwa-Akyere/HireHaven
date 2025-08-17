@@ -1,8 +1,9 @@
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { BsFillPeopleFill } from "react-icons/bs";
-import { IoStatsChart } from "react-icons/io5";
+import { VscGraph } from "react-icons/vsc";
 import { TbLogout2 } from "react-icons/tb";
+import { IoMdMenu } from "react-icons/io";
 
 const Sidebar = () => {
   return (
@@ -12,18 +13,18 @@ const Sidebar = () => {
         {/* Page content here */}
         <label
           htmlFor="my-drawer-2"
-          className="btn btn-primary drawer-button lg:hidden"
+          className="btn btn-primary drawer-button lg:hidden self-start m-4"
         >
-          Open drawer
+         <IoMdMenu className="text-2xl"/>
         </label>
       </div>
-      <div className="drawer-side ">
+      <div className="drawer-side  ">
         <label
           htmlFor="my-drawer-2"
           aria-label="close sidebar"
-          className="drawer-overlay "
+          className="drawer-overlay w-[22rem]"
         ></label>
-        <ul className='menu text-base-content min-h-full w-80 p-4 gap-y-5  '>
+        <ul className='menu text-base-content min-h-full w-80 p-4 gap-y-5 bg-base-100 '>
           {/* Sidebar content here */}
           <li>
             <div>
@@ -67,7 +68,7 @@ const Sidebar = () => {
               }
             >
              <div className="flex gap-2">
-                <IoStatsChart size={20}/>
+                <VscGraph size={20}/>
                 <p className="self-center font-medium">Statistics</p>
               </div>
             </NavLink>
