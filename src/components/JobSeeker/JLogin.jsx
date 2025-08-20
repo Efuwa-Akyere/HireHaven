@@ -41,23 +41,27 @@ const JLogin = () => {
             </div>
           </div>
           </div>
-          <div className="flex flex-col gap-3 ">
-            <form className="flex flex-col gap-4">
+          <div className="flex flex-col gap-5  w-full px-10">
+            <form className="flex flex-col gap-y-5 w-full">
+              <div>
+                <label htmlFor="">Username</label>
               <input
                 type="text"
                 name="username"
                 placeholder="Enter your username"
-                className="border-3 border-[#1b1ba3] rounded-lg w-full h-10 flex text-center"
+                className="border-1 border-[#1b1ba3] rounded-lg w-full h-10 flex p-4"
               />
+              </div>
               <div className="relative">
+                <label htmlFor="">Password</label>
               <input
                 
                 type="password"
                 name="password"
                 placeholder="Enter your password"
-                className="border-3 border-[#1b1ba3] rounded-lg h-10 w-full pr-12 p-4"
+                className="border-1 border-[#1b1ba3] rounded-lg h-10 w-full  p-4"
               />
-              <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
+              <button className="absolute right-3 top-2/3 transform -translate-y-1/2">
                 <FaRegEyeSlash 
                   
                 />
