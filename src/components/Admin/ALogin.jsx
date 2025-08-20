@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const ALogin = () => {
   return (
-    <section className="bg-[#313d81] p-6 flex justify-center items-center h-screen">
+    <section className="bg-[#E7EAFC] p-6 flex justify-center items-center h-screen">
       <div className="bg-white flex flex-col  w-[30rem] py-10 shadow-2xl rounded-lg">
         <div className="text-[#0000FF]  flex justify-around ml-40 mb-5">
             <p className="font-bold text-xl">LOGIN</p>
@@ -41,23 +41,27 @@ const ALogin = () => {
             </div>
           </div>
           </div>
-          <div className="flex flex-col gap-3 ">
-            <form className="flex flex-col gap-4">
+          <div className="flex flex-col gap-5 w-full px-10">
+            <form className="flex flex-col gap-y-5 w-full">
+              <div>
+                <label htmlFor="">Username</label>
               <input
                 type="text"
                 name="username"
                 placeholder="Enter your username"
-                className="border-3 border-[#1b1ba3] rounded-lg w-full h-10 flex text-center"
+                className="border-1 border-[#1b1ba3] rounded-lg w-full h-10 p-4"
               />
+              </div>
               <div className="relative">
+                <label htmlFor="">Password</label>
               <input
                 
                 type="password"
                 name="password"
                 placeholder="Enter your password"
-                className="border-3 border-[#1b1ba3] rounded-lg h-10 w-full pr-12 p-4"
+                className="border-1 border-[#1b1ba3] rounded-lg h-10 w-full pr-12 p-4"
               />
-              <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
+              <button className="absolute right-3 top-2/3 transform -translate-y-1/2">
                 <FaRegEyeSlash 
                   
                 />
