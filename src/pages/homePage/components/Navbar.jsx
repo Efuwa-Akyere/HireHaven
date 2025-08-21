@@ -20,8 +20,8 @@ const Navbar = () => {
 
         {/* Desktop Nav */}
         <ul className="hidden md:flex gap-10 items-center">
-          <li className="cursor-pointer hover:text-[#0000FF]">Home</li>
-          <li className="cursor-pointer hover:text-[#0000FF]">About Us</li>
+          <Link to={'/'} className="cursor-pointer hover:text-[#0000FF]">Home</Link>
+          <Link to={'about'} className="cursor-pointer hover:text-[#0000FF]">About Us</Link>
           <li className="cursor-pointer hover:text-[#0000FF]">Contact</li>
         </ul>
 

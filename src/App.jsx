@@ -28,6 +28,7 @@ import Applicants from "./pages/adminDashboard/components/Applicants.jsx";
 import Employers from "./pages/adminDashboard/components/Employers.jsx";
 import Statistics from "./pages/adminDashboard/components/Statistics.jsx";
 import Welcome from "./pages/adminDashboard/Welcome.jsx";
+import About from "./pages/aboutPage/about.jsx";
 
 // Context for user authentication
 export const AuthContext = React.createContext();
@@ -95,6 +96,10 @@ function App() {
     {
       path: "alogin",
       element: <ALogin />,
+    },
+    {
+      path: "about",
+      element: <About />,
     },
     {
       path: "rootlayout",
