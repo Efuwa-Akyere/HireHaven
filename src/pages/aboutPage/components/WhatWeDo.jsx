@@ -8,7 +8,7 @@ import { BsGraphUpArrow } from "react-icons/bs";
 const WhatWeDo = () => {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 mt-16 lg:gap-x-16 px-6 lg:mx-16 my-12">
-      {/* Left (Images) */}
+      
       <div className="flex flex-col ">
         <div className="flex gap-4 sm:gap-6 justify-center">
           <img
@@ -40,7 +40,7 @@ const WhatWeDo = () => {
         </div>
       </div>
 
-      {/* Right (Text Section) */}
+      
       <div className="flex flex-col items-center  gap-y-10 mt-12 lg:mt-20">
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center ">
         Help You To Get The <br />Best Job That Fits You

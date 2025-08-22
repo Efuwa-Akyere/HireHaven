@@ -7,10 +7,10 @@ const Hero = () => {
                  max-md:px-10 max-sm:px-4 max-sm:h-[250px]"
       style={{ backgroundImage: `url(${LandingPic1})` }}
     >
-      {/* Overlay */}
+    
       <div className="absolute inset-0 bg-blue-700/55"></div>
 
-      {/* Content */}
+      
       <div className="relative z-10 max-w-5xl px-6 text-white
                       max-sm:text-center">
         <h2 className="text-4xl font-bold mb-2 max-sm:text-2xl">About Us</h2>
