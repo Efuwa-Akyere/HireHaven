@@ -1,59 +1,100 @@
-import { FaFacebook, FaInstagram, FaTwitter, FaRegCopyright } from "react-icons/fa6";
-import { IoGlobeOutline } from "react-icons/io5";
-import { FaLocationDot } from "react-icons/fa6";
-import { IoMdMail } from "react-icons/io";
+import React from "react";
+import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 
 const Footer = () => {
   return (
-    <section className="p-6 sm:p-12 bg-[#0000FF] text-white">
-      <div className="grid gap-10 md:grid-cols-3">
-        
-        <div className="flex flex-col gap-4">
-          <p className="text-xl font-medium">
-            HIRE<span className="text-2xl font-bold">HAVEN</span>
-          </p>
-          <p className="text-sm sm:text-base leading-relaxed">
-            HireHaven is a modern job portal dedicated to connecting skilled professionals with employers who value talent. Our mission is to simplify the hiring process and empower people to find meaningful work.
-          </p>
-        </div>
+    <footer className="bg-gray-900 text-white py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid md:grid-cols-4 gap-8">
+          {/* Company Info */}
+          <div className="space-y-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold">HH</span>
+              </div>
+              <span className="text-xl font-bold">HireHaven</span>
+            </div>
+            <p className="text-gray-400">
+              Connecting talented individuals with amazing opportunities. Your
+              career journey starts here.
+            </p>
+            <div className="flex space-x-4">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                <Facebook className="w-5 h-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors duration-200" />
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                <Twitter className="w-5 h-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors duration-200" />
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                <Linkedin className="w-5 h-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors duration-200" />
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <Instagram className="w-5 h-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors duration-200" />
+              </a>
+            </div>
+          </div>
 
-        
-        <div className="flex flex-col items-start md:items-center gap-4">
-          <p className="text-xl font-medium">Socials</p>
-          <div className="flex flex-col gap-4">
-            <FaFacebook size={20} />
-            <FaInstagram size={20} />
-            <FaTwitter size={20} />
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul className="space-y-2 text-gray-400">
+              <li><a href="#" className="hover:text-white transition-colors duration-200">Find Jobs</a></li>
+              <li><a href="#" className="hover:text-white transition-colors duration-200">Post a Job</a></li>
+              <li><a href="#" className="hover:text-white transition-colors duration-200">Browse Companies</a></li>
+              <li><a href="#" className="hover:text-white transition-colors duration-200">Career Advice</a></li>
+              <li><a href="#" className="hover:text-white transition-colors duration-200">Resume Builder</a></li>
+            </ul>
+          </div>
+
+          {/* Support */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Support</h3>
+            <ul className="space-y-2 text-gray-400">
+              <li><a href="#" className="hover:text-white transition-colors duration-200">Help Center</a></li>
+              <li><a href="#" className="hover:text-white transition-colors duration-200">Contact Us</a></li>
+              <li><a href="#" className="hover:text-white transition-colors duration-200">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-white transition-colors duration-200">Terms of Service</a></li>
+              <li><a href="#" className="hover:text-white transition-colors duration-200">Accessibility</a></li>
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Get in Touch</h3>
+            <div className="space-y-3 text-gray-400">
+              <div className="flex items-center space-x-3">
+                <Phone className="w-4 h-4" />
+                <span>+1 (555) 123-4567</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Mail className="w-4 h-4" />
+                <span>info@hirehaven.com</span>
+              </div>
+              <div className="flex items-start space-x-3">
+                <MapPin className="w-4 h-4 mt-1" />
+                <span>
+                  123 Business Avenue
+                  <br />
+                  Suite 456, City, State 12345
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
-        
-        <div className="flex flex-col gap-4 items-start md:items-center">
-          <p className="text-xl font-medium">Contact</p>
-          <div className="flex flex-col gap-3 text-sm sm:text-base">
-            <div className="flex gap-2 items-center">
-              <IoGlobeOutline size={20} />
-              <p>www.hirehaven.org</p>
-            </div>
-            <div className="flex gap-2 items-center">
-              <FaLocationDot size={20} />
-              <p>Dworwulu, Accra. Ghana</p>
-            </div>
-            <div className="flex gap-2 items-center">
-              <IoMdMail size={20} />
-              <p>hirehaven@gmail.com</p>
-            </div>
+        {/* Bottom Bar */}
+        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-400 text-sm">
+            © 2025 Hire Haven. All rights reserved.
+          </p>
+          <div className="flex items-center space-x-4 mt-4 md:mt-0">
+            <span className="text-gray-400 text-sm">
+              Made with ❤️ for your career success
+            </span>
           </div>
         </div>
       </div>
-
-      <hr className="border-white mt-10" />
-
-      <div className="flex  sm:flex-row justify-center items-center gap-2 text-sm mt-4">
-        <FaRegCopyright />
-        <p>2025. All rights reserved</p>
-      </div>
-    </section>
+    </footer>
   );
 };
 

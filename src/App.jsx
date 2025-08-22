@@ -22,6 +22,7 @@ import Profile from "./pages/Profile.jsx";
 import Applications from "./pages/Applications.jsx";
 import JobSeekerDashboard from "./components/Dashboard/JobSeekerDashboard.jsx";
 import EmployerDashboard from "./components/Dashboard/EmployerDashboard.jsx";
+import ContactUs from "./components/ContactUs/ContactUs.jsx";
 
 import RootLayout from "./layout/RootLayout.jsx";
 import Applicants from "./pages/adminDashboard/components/Applicants.jsx";
@@ -101,6 +102,11 @@ function App() {
       path: "about",
       element: <About />,
     },
+    {
+      path: "contactus",
+      element: <ContactUs />,
+    },
+
     {
       path: "rootlayout",
       element: <RootLayout />,

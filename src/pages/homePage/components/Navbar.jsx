@@ -22,7 +22,7 @@ const Navbar = () => {
         <ul className="hidden md:flex gap-10 items-center">
           <Link to={'/'} className="cursor-pointer hover:text-[#0000FF]">Home</Link>
           <Link to={'about'} className="cursor-pointer hover:text-[#0000FF]">About Us</Link>
-          <li className="cursor-pointer hover:text-[#0000FF]">Contact</li>
+          <Link to={'/contactus'} className="cursor-pointer hover:text-[#0000FF]">Contact</Link>          
         </ul>
 
         {/* Auth Links */}
