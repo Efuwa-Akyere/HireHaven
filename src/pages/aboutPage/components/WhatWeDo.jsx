@@ -14,12 +14,12 @@ const WhatWeDo = () => {
           <img
             src={Pic3}
             alt=""
-            className="rounded-xl h-[14rem] w-[10rem] sm:h-[21rem] sm:w-[15rem]"
+            className="rounded-xl h-[14rem] w-[10rem] sm:h-[21rem] sm:w-[15rem] object-contain"
           />
           <img
             src={Pic2}
             alt=""
-            className="rounded-xl h-[14rem] w-[10rem] sm:h-[21rem] sm:w-[15rem] mt-8 sm:mt-16"
+            className="rounded-xl h-[14rem] w-[10rem] sm:h-[21rem] sm:w-[15rem] mt-8 sm:mt-16 object-contain"
           />
         </div>
 
@@ -27,7 +27,7 @@ const WhatWeDo = () => {
           <img
             src={Pic1}
             alt=""
-            className="rounded-xl h-[14rem] w-[10rem] sm:h-[21rem] sm:w-[15rem] -mt-6 sm:-mt-10"
+            className="rounded-xl h-[14rem] w-[10rem] sm:h-[21rem] sm:w-[15rem] -mt-6 sm:-mt-10 object-contain"
           />
           <div className="relative flex items-center justify-center rounded-xl h-[10rem] w-[10rem] sm:h-[15rem] sm:w-[15rem] mt-4 sm:mt-6">
             <div className="absolute inset-0 bg-blue-700/90 rounded-xl"></div>
