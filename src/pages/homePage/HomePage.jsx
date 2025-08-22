@@ -6,6 +6,7 @@ import Categories from './components/Categories'
 import CvPage from './components/CvPage'
 import Footer from './components/Footer'
 import BrowseJobs from './components/BrowseJobs'
+import ContactUs from '../../components/ContactUs'
 
 const HomePage = () => {
   return (
