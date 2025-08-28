@@ -81,6 +81,7 @@ const ELogin = () => {
           </div>
           <div className="flex flex-col gap-5  w-full px-10">
             <form onSubmit={handleLogin} className="flex flex-col gap-y-5 w-full">
+              {errorMessage ? errorMessage : null}
               <div>
                 <label htmlFor="">Username</label>
                 <input
