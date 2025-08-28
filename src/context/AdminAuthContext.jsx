@@ -2,25 +2,23 @@ import { createContext, useState } from "react";
 import { api } from "../config/axios.js";
 
 
-export const EmployerAuthContext = createContext(null);
+export const AdminAuthContext = createContext(null);
 
-export function EmployerAuthProvider({
+export function AdminAuthProvider({
     children
 }) {
-    const [employer, setEmployer] = useState(null);
-
+    const [admin, setAdmin] = useState(null);
     const [loading, setLoading] = useState(true);
 
-
-    async function employerLogin(username, password) {
+    async function adminLogin(username, password) {
         try {
-            const res = await api.post('/auth/elogin', {
+            const res = await api.post('/auth/alogin',{
                 username,
                 password,
             });
 
             if(res.data.success) {
-                setEmployer(res.data.employer);
+                setAdmin(res.data.admin);
                 setLoading(false);
                 return res.data;
             }
@@ -31,9 +29,8 @@ export function EmployerAuthProvider({
     };
 
     return (
-        <EmployerAuthContext.Provider value={{employer, setEmployer, loading, employerLogin}}>
+        <AdminAuthContext.Provider value={{admin, setAdmin, loading, adminLogin}}>
             {children}
-        </EmployerAuthContext.Provider>
+        </AdminAuthContext.Provider>
     )
-
 }

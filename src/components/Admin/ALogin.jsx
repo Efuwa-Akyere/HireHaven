@@ -2,9 +2,46 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
 import { FaRegEyeSlash } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { AdminAuthContext } from "../../context/AdminAuthContext";
+import toast from "react-hot-toast";
 
 const ALogin = () => {
+
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState(null);
+  const {adminLogin} = useContext(AdminAuthContext);
+
+  const [admin, setAdmin] = useState({
+    username: '',
+    password: '',
+  });
+
+  async function handleLogin(e) {
+    e.preventDefault();
+
+    if(!admin.username || !admin.password) {
+      return toast.error('username or password is required');
+    }
+
+    try {
+      const response = await adminLogin(
+        admin.username,
+        admin.password,
+      );
+      console.log(response);
+
+      if(response?.success) {
+        toast.success('You have logged in successsfully');
+        return navigate('/rootlayout', {replace: true})
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+      setErrorMessage(error.response.data.message);
+    }
+  }
+
   return (
     <section className="bg-[#E7EAFC] p-6 flex justify-center items-center h-screen">
       <div className="bg-white flex flex-col  w-[30rem] py-10 shadow-2xl rounded-lg">
@@ -42,10 +79,13 @@ const ALogin = () => {
           </div>
           </div>
           <div className="flex flex-col gap-5 w-full px-10">
-            <form className="flex flex-col gap-y-5 w-full">
+            <form onSubmit={handleLogin} className="flex flex-col gap-y-5 w-full">
+              {errorMessage ? errorMessage : null}
               <div>
                 <label htmlFor="">Username</label>
               <input
+              value={admin.username}
+                onChange={(e) => setAdmin({...admin, username: e.target.value})}
                 type="text"
                 name="username"
                 placeholder="Enter your username"
@@ -55,7 +95,8 @@ const ALogin = () => {
               <div className="relative">
                 <label htmlFor="">Password</label>
               <input
-                
+                value={admin.password}
+                onChange={(e) => setAdmin({...admin, password: e.target.value})}
                 type="password"
                 name="password"
                 placeholder="Enter your password"
@@ -67,10 +108,14 @@ const ALogin = () => {
                 />
               </button>
             </div>
+            <button
+                type="submit"
+                className="bg-[#1b1ba3] text-white font-bold rounded-lg h-10 w-full cursor-pointer"
+              >
+                Login
+              </button>
             </form>
-            <Link to={'/rootlayout'} className="bg-[#1b1ba3] text-white flex justify-center font-bold rounded-lg h-10 w-full cursor-pointer">
-              <button className="cursor-pointer">Log In</button>
-            </Link>
+            
             <ul className="flex gap-1  mt-4">
               <li>Don't have an account?</li>
               <Link to={'/asignup'} className="text-[#0000FF]">Sign Up</Link>
