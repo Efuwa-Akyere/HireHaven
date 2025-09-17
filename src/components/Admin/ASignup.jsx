@@ -12,6 +12,7 @@ const ASignup = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
+    email: '',
   });
 
   const navigate = useNavigate();
@@ -20,8 +21,8 @@ const ASignup = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const {username, password} = formData;
-    if(!username || !password) {
+    const {username, password, email} = formData;
+    if(!username || !password || !email) {
       return toast.error('All fields are required');
     }
 
@@ -29,6 +30,7 @@ const ASignup = () => {
       const response = await api.post('/auth/asignup', {
         username,
         password,
+        email,
       });
       console.log(response.data);
 
@@ -89,6 +91,17 @@ const ASignup = () => {
                 value={formData.username}
                 onChange={(e) => setFormData({...formData, username: e.target.value})}
                 placeholder="Enter your username"
+                className="border-1 border-[#1b1ba3] rounded-lg w-full h-10 p-4"
+              />
+              </div>
+              <div>
+                <label htmlFor="">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                placeholder="Enter your email"
                 className="border-1 border-[#1b1ba3] rounded-lg w-full h-10 p-4"
               />
               </div>
