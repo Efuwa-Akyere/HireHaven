@@ -14,20 +14,20 @@ const ELogin = () => {
   const { employerLogin } = useContext(EmployerAuthContext);
 
   const [employer, setEmployer] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
   async function handleLogin(e) {
     e.preventDefault();
 
-    if (!employer.username || !employer.password) {
-      return toast.error("username or password is required");
+    if (!employer.email || !employer.password) {
+      return toast.error("email or password is required");
     }
 
     try {
       const response = await employerLogin(
-        employer.username,
+        employer.email,
         employer.password
       );
       console.log(response);
@@ -83,13 +83,13 @@ const ELogin = () => {
             <form onSubmit={handleLogin} className="flex flex-col gap-y-5 w-full">
               {errorMessage ? errorMessage : null}
               <div>
-                <label htmlFor="">Username</label>
+                <label htmlFor="">Email</label>
                 <input
-                value={employer.username}
-                onChange={(e) => setEmployer({...employer, username: e.target.value})}
-                  type="text"
-                  name="username"
-                  placeholder="Enter your username"
+                value={employer.email}
+                onChange={(e) => setEmployer({...employer, email: e.target.value})}
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
                   className="border-1 border-[#1b1ba3] rounded-lg w-full h-10 p-4"
                 />
               </div>
@@ -115,12 +115,16 @@ const ELogin = () => {
               </button>
             </form>
 
-            <ul className="flex gap-1  mt-4">
+            <div className="flex justify-between">
+              <ul className="flex gap-1  mt-4">
               <li>Don't have an account?</li>
-              <Link to={"/esignup"} className="text-[#0000FF]">
-                Sign Up
-              </Link>
+              <Link to={'/esignup'} className="text-[#0000FF]">Sign Up</Link>
             </ul>
+            <ul className="flex gap-1  mt-4">
+              
+              <Link to={'/eforgotpassword'} className="text-[#0000FF]">ForgotPassword</Link>
+            </ul>
+            </div>
           </div>
         </div>
       </div>

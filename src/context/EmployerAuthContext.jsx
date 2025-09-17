@@ -12,10 +12,10 @@ export function EmployerAuthProvider({
     const [loading, setLoading] = useState(true);
 
 
-    async function employerLogin(username, password) {
+    async function employerLogin(email, password) {
         try {
             const res = await api.post('/auth/elogin', {
-                username,
+                email,
                 password,
             });
 

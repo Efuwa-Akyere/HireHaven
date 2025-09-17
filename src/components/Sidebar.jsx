@@ -4,8 +4,13 @@ import { BsFillPeopleFill } from "react-icons/bs";
 import { VscGraph } from "react-icons/vsc";
 import { TbLogout2 } from "react-icons/tb";
 import { IoMdMenu } from "react-icons/io";
+import { useContext } from "react";
+import { AdminAuthContext } from "../context/AdminAuthContext";
 
 const Sidebar = () => {
+  const {admin, adminLogout} = useContext(AdminAuthContext);
+
+
   return (
     <div className='drawer lg:drawer-open min-h '>
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -74,18 +79,12 @@ const Sidebar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink
-              to={"/"}
-              className={({ isActive }) =>
-                isActive ? "bg-blue-900 text-white" : "text-[#0000FF]"
-              }
-            >
-              <div className="flex gap-2">
-                <TbLogout2 size={20}/>
-                <p className="self-center font-medium">LogOut</p>
-              </div>
-            </NavLink>
-          </li>
+  <button onClick={adminLogout} className="flex gap-2 text-[#0000FF]">
+    <TbLogout2 size={20}/>
+    <p className="self-center font-medium">LogOut</p>
+  </button>
+</li>
+
         </ul>
       </div>
     </div>

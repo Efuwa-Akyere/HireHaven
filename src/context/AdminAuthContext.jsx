@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import { api } from "../config/axios.js";
+import { useNavigate } from "react-router-dom";
 
 
 export const AdminAuthContext = createContext(null);
@@ -9,11 +10,12 @@ export function AdminAuthProvider({
 }) {
     const [admin, setAdmin] = useState(null);
     const [loading, setLoading] = useState(true);
+    
 
-    async function adminLogin(username, password) {
+    async function adminLogin(email, password) {
         try {
             const res = await api.post('/auth/alogin',{
-                username,
+                email,
                 password,
             });
 
@@ -28,8 +30,24 @@ export function AdminAuthProvider({
         }
     };
 
+    async function adminLogout() {
+        
+        
+        try {
+            const res = await api.post('auth/alogout');
+            
+            if(res.data.success) {
+                setAdmin(null);
+                 window.location.href = "/";
+                return res.data;
+            }
+        } catch (error) {
+            console.log('logout failed', error);
+        }
+    }
+
     return (
-        <AdminAuthContext.Provider value={{admin, setAdmin, loading, adminLogin}}>
+        <AdminAuthContext.Provider value={{admin, setAdmin, loading, adminLogin, adminLogout}}>
             {children}
         </AdminAuthContext.Provider>
     )
