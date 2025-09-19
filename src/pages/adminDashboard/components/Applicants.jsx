@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion';
 import HeadShot1 from '../../../assets/images/HeadShot1.png'
 import HeadShot2 from '../../../assets/images/HeadShot2.jpg'
-import HeadShot3 from '../../../assets/images/HeadShot3.jpg'
+import HeadShot3 from '../../../assets/images/Headshot3.jpg'
 
 const Applicants = () => {
   return (
