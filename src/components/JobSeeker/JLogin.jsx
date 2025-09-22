@@ -5,6 +5,7 @@ import { FaLinkedin } from "react-icons/fa6";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from '../../contexts/AuthContext';
+import toast from 'react-hot-toast';
 
 const JLogin = () => {
   const navigate = useNavigate();
@@ -58,7 +59,10 @@ const JLogin = () => {
     const result = await login(formData.email, formData.password);
     
     if (result.success) {
+      toast.success("Login successful! Welcome back!");
       navigate('/dashboard');
+    } else {
+      toast.error(result.error || "Login failed. Please try again.");
     }
   };
 

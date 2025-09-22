@@ -568,7 +568,7 @@ const EmployerDashboard = () => {
                 }}>
                   {companyProfile?.logo ? (
                     <img 
-                      src={`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/${companyProfile.logo.path}`} 
+                      src={`${import.meta.env.VITE_API_URL || 'http://localhost:7000'}/${companyProfile.logo.path}`} 
                       alt="Company Logo" 
                       style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }}
                     />

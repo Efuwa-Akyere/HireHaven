@@ -68,13 +68,15 @@ class ApiClient {
 
   // Auth Methods
   async register(userData) {
+    // Use jobseeker endpoint by default (keep existing behavior)
     return this.request('/auth/jobseeker/signup', {
       method: 'POST',
       body: JSON.stringify(userData),
     });
   }
 
-  async login(email, password) {
+  async login(email, password, userType = 'jobseeker') {
+    // Use jobseeker endpoint by default (keep existing behavior)
     const response = await this.request('/auth/jobseeker/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
@@ -93,6 +95,27 @@ class ApiClient {
     } finally {
       this.setToken(null);
     }
+  }
+
+  // Employer-specific auth methods
+  async employerRegister(userData) {
+    return this.request('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(userData),
+    });
+  }
+
+  async employerLogin(email, password) {
+    const response = await this.request('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    });
+    
+    if (response.token) {
+      this.setToken(response.token);
+    }
+    
+    return response;
   }
 
   async getCurrentUser() {
@@ -265,6 +288,31 @@ class ApiClient {
     });
   }
 
+  // Office Management
+  async addOffice(officeData) {
+    return this.request('/employer/offices', {
+      method: 'POST',
+      body: JSON.stringify(officeData),
+    });
+  }
+
+  async getOffices() {
+    return this.request('/employer/offices');
+  }
+
+  async updateOffice(officeId, officeData) {
+    return this.request(`/employer/offices/${officeId}`, {
+      method: 'PUT',
+      body: JSON.stringify(officeData),
+    });
+  }
+
+  async deleteOffice(officeId) {
+    return this.request(`/employer/offices/${officeId}`, {
+      method: 'DELETE',
+    });
+  }
+
   async getEmployerStats() {
     return this.request('/employer/dashboard-stats');
   }
@@ -408,6 +456,28 @@ export const authService = {
     }
   },
 
+  // Employer-specific auth methods
+  async employerLogin(email, password) {
+    try {
+      const response = await apiClient.employerLogin(email, password);
+      return { success: true, data: response };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  },
+
+  async employerRegister(userData) {
+    try {
+      const response = await apiClient.employerRegister(userData);
+      if (response.token) {
+        apiClient.setToken(response.token);
+      }
+      return { success: true, data: response };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  },
+
   async getCurrentUser() {
     try {
       const response = await apiClient.getCurrentUser();
@@ -531,6 +601,80 @@ export const employerService = {
   async updateApplicationStatus(applicationId, statusData) {
     try {
       const response = await apiClient.updateApplicationStatus(applicationId, statusData);
+      return { success: true, data: response };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Add missing methods
+  async uploadCompanyLogo(logoFile) {
+    try {
+      const response = await apiClient.uploadCompanyLogo(logoFile);
+      return { success: true, data: response.data };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  },
+
+  async getAnalytics(params = {}) {
+    try {
+      const response = await apiClient.getEmployerAnalytics(params);
+      return { success: true, data: response.data };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  },
+
+  async getCandidateProfile(candidateId) {
+    try {
+      const response = await apiClient.getCandidateProfile(candidateId);
+      return { success: true, data: response.data };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  },
+
+  async rateCandidate(applicationId, rating, notes) {
+    try {
+      const response = await apiClient.rateCandidate(applicationId, rating, notes);
+      return { success: true, data: response };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Office Management
+  async addOffice(officeData) {
+    try {
+      const response = await apiClient.addOffice(officeData);
+      return { success: true, data: response.data };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  },
+
+  async getOffices() {
+    try {
+      const response = await apiClient.getOffices();
+      return { success: true, data: response.data };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  },
+
+  async updateOffice(officeId, officeData) {
+    try {
+      const response = await apiClient.updateOffice(officeId, officeData);
+      return { success: true, data: response.data };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  },
+
+  async deleteOffice(officeId) {
+    try {
+      const response = await apiClient.deleteOffice(officeId);
       return { success: true, data: response };
     } catch (error) {
       return { success: false, error: error.message };

@@ -3,42 +3,41 @@ import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 import toast from "react-hot-toast";
-import { EmployerAuthContext } from "../../context/EmployerAuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 const ELogin = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [errorMessage, setErrorMessage] = useState(null);
-  const { employerLogin } = useContext(EmployerAuthContext);
 
-  const [employer, setEmployer] = useState({
-    username: "",
+  const [formData, setFormData] = useState({
+    email: "",
     password: "",
   });
 
   async function handleLogin(e) {
     e.preventDefault();
 
-    if (!employer.username || !employer.password) {
-      return toast.error("username or password is required");
+    if (!formData.email || !formData.password) {
+      return toast.error("Email and password are required");
     }
 
     try {
-      const response = await employerLogin(
-        employer.username,
-        employer.password
-      );
-      console.log(response);
-
-      if (response?.success) {
+      const result = await login(formData.email, formData.password, 'employer');
+      
+      if (result.success) {
         toast.success("You have logged in successfully");
-        return navigate('/rootlayout', { replace: true });
+        navigate('/dashboard', { replace: true });
+      } else {
+        toast.error(result.error);
+        setErrorMessage(result.error);
       }
     } catch (error) {
-      toast.error(error.response.data.message);
-      setErrorMessage(error.response.data.message);
+      toast.error(error.message);
+      setErrorMessage(error.message);
     }
   }
 
@@ -46,7 +45,7 @@ const ELogin = () => {
     <section className="bg-[#E7EAFC] p-6 flex justify-center items-center h-screen">
       <div className="bg-white flex flex-col  w-[30rem] py-10 shadow-2xl rounded-lg">
         <div className="text-[#0000FF]  flex justify-around ml-40 mb-5">
-          <p className="font-bold text-xl">LOGIN</p>
+          <p className="font-bold text-xl">EMPLOYER LOGIN</p>
           <Link to={"/"} className="cursor-pointer ml-6">
             Home
           </Link>
@@ -81,29 +80,31 @@ const ELogin = () => {
           </div>
           <div className="flex flex-col gap-5  w-full px-10">
             <form onSubmit={handleLogin} className="flex flex-col gap-y-5 w-full">
-              {errorMessage ? errorMessage : null}
+              {errorMessage && <div className="text-red-500">{errorMessage}</div>}
               <div>
-                <label htmlFor="">Username</label>
+                <label htmlFor="email">Email</label>
                 <input
-                value={employer.username}
-                onChange={(e) => setEmployer({...employer, username: e.target.value})}
-                  type="text"
-                  name="username"
-                  placeholder="Enter your username"
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
                   className="border-1 border-[#1b1ba3] rounded-lg w-full h-10 p-4"
+                  required
                 />
               </div>
               <div className="relative">
-                <label htmlFor="">Password</label>
+                <label htmlFor="password">Password</label>
                 <input
-                value={employer.password}
-                onChange={(e) => setEmployer({...employer, password: e.target.value})}
+                  value={formData.password}
+                  onChange={(e) => setFormData({...formData, password: e.target.value})}
                   type="password"
                   name="password"
                   placeholder="Enter your password"
                   className="border-1 border-[#1b1ba3] rounded-lg h-10 w-full pr-12 p-4"
+                  required
                 />
-                <button className="absolute right-3 top-2/3 transform -translate-y-1/22">
+                <button className="absolute right-3 top-2/3 transform -translate-y-1/2">
                   <FaRegEyeSlash />
                 </button>
               </div>

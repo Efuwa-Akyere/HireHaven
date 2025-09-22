@@ -91,6 +91,13 @@ const Profile = () => {
     setSaving(true);
     setMessage({ type: '', text: '' });
 
+    // Validate required fields
+    if (!profile.phone.trim()) {
+      setMessage({ type: 'error', text: 'Phone number is required' });
+      setSaving(false);
+      return;
+    }
+
     try {
       const formData = new FormData();
       
@@ -218,7 +225,7 @@ const Profile = () => {
                   </div>
                   <div className="col-6">
                     <div className="form-group">
-                      <label>Phone Number</label>
+                      <label>Phone Number *</label>
                       <input
                         type="tel"
                         name="phone"
@@ -226,6 +233,7 @@ const Profile = () => {
                         value={profile.phone}
                         onChange={handleInputChange}
                         placeholder="+233 XXX XXX XXX"
+                        required
                       />
                     </div>
                   </div>

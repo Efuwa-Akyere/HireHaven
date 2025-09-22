@@ -5,6 +5,7 @@ import { FaLinkedin } from "react-icons/fa6";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from '../../contexts/AuthContext';
+import toast from 'react-hot-toast';
 
 const JsignUp = () => {
   const navigate = useNavigate();
@@ -14,7 +15,8 @@ const JsignUp = () => {
     firstName: '',
     lastName: '',
     email: '',
-    password: ''
+    password: '',
+    phone: ''
   });
   const [showPassword, setShowPassword] = useState(false);
   const [formErrors, setFormErrors] = useState({});
@@ -64,6 +66,12 @@ const JsignUp = () => {
       errors.password = 'Password must contain uppercase, lowercase, and number';
     }
     
+    if (!formData.phone) {
+      errors.phone = 'Phone number is required';
+    } else if (!/^[\+]?[1-9][\d]{0,15}$/.test(formData.phone.replace(/[\s\-\(\)]/g, ''))) {
+      errors.phone = 'Please enter a valid phone number';
+    }
+    
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -76,7 +84,10 @@ const JsignUp = () => {
     const result = await register(formData);
     
     if (result.success) {
-      navigate('/dashboard');
+      toast.success("Account created successfully! Please login to continue.");
+      navigate('/jlogin');
+    } else {
+      toast.error(result.error || "Signup failed. Please try again.");
     }
   };
 
@@ -173,6 +184,25 @@ const JsignUp = () => {
               />
               {formErrors.email && (
                 <p className="text-red-500 text-xs mt-1">{formErrors.email}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="+233 XXX XXX XXX"
+                className={`border-2 rounded-lg w-full h-10 px-4 focus:outline-none focus:border-blue-500 ${
+                  formErrors.phone ? 'border-red-500' : 'border-[#1b1ba3]'
+                }`}
+              />
+              {formErrors.phone && (
+                <p className="text-red-500 text-xs mt-1">{formErrors.phone}</p>
               )}
             </div>
 

@@ -80,15 +80,22 @@ export const AuthProvider = ({ children }) => {
     checkAuth();
   }, []);
 
-  const login = async (email, password) => {
+  const login = async (email, password, userType = null) => {
   dispatch({ type: 'AUTH_START' });
-  const result = await authService.login(email, password);
+  
+  // Use appropriate login method based on userType
+  let result;
+  if (userType === 'employer') {
+    result = await authService.employerLogin(email, password);
+  } else {
+    result = await authService.login(email, password);
+  }
 
   if (result.success) {
     // Make sure userType exists
     const user = {
       ...result.data.user,
-      userType: result.data.user.userType || "jobseeker" // fallback if backend doesn't return
+      userType: result.data.user.userType || userType || "jobseeker" // fallback if backend doesn't return
     };
 
     dispatch({
@@ -112,7 +119,14 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     dispatch({ type: 'AUTH_START' });
-    const result = await authService.register(userData);
+    
+    // Use appropriate register method based on userType
+    let result;
+    if (userData.userType === 'employer') {
+      result = await authService.employerRegister(userData);
+    } else {
+      result = await authService.register(userData);
+    }
     
     if (result.success) {
       dispatch({
