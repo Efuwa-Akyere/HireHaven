@@ -14,20 +14,20 @@ const ALogin = () => {
   const {adminLogin} = useContext(AdminAuthContext);
 
   const [admin, setAdmin] = useState({
-    username: '',
+    email: '',
     password: '',
   });
 
   async function handleLogin(e) {
     e.preventDefault();
 
-    if(!admin.username || !admin.password) {
+    if(!admin.email || !admin.password) {
       return toast.error('username or password is required');
     }
 
     try {
       const response = await adminLogin(
-        admin.username,
+        admin.email,
         admin.password,
       );
       console.log(response);
@@ -82,12 +82,12 @@ const ALogin = () => {
             <form onSubmit={handleLogin} className="flex flex-col gap-y-5 w-full">
               {errorMessage ? errorMessage : null}
               <div>
-                <label htmlFor="">Username</label>
+                <label htmlFor="">Email</label>
               <input
-              value={admin.username}
-                onChange={(e) => setAdmin({...admin, username: e.target.value})}
-                type="text"
-                name="username"
+              value={admin.email}
+                onChange={(e) => setAdmin({...admin, email: e.target.value})}
+                type="email"
+                name="email"
                 placeholder="Enter your username"
                 className="border-1 border-[#1b1ba3] rounded-lg w-full h-10 p-4"
               />
@@ -116,10 +116,16 @@ const ALogin = () => {
               </button>
             </form>
             
-            <ul className="flex gap-1  mt-4">
+            <div className="flex justify-between">
+              <ul className="flex gap-1  mt-4">
               <li>Don't have an account?</li>
               <Link to={'/asignup'} className="text-[#0000FF]">Sign Up</Link>
             </ul>
+            <ul className="flex gap-1  mt-4">
+              
+              <Link to={'/aforgotpassword'} className="text-[#0000FF]">ForgotPassword</Link>
+            </ul>
+            </div>
           </div>
         </div>
       </div>
