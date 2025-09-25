@@ -1,3 +1,4 @@
+
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
@@ -5,42 +6,42 @@ import { FaRegEyeSlash } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { api } from "../../config/axios.js";
+import { useAuth } from "../../contexts/AuthContext";
 
 const ESignup = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    email: '',
-  });
-
   const navigate = useNavigate();
-
+  const { register } = useAuth();
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    userType: "employer",
+    companyName: "",
+    industry: "",
+    companySize: ""
+  });
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const { username, password, email } = formData;
-    if (!username || !password || !email) {
-      return toast.error("All fields are required");
+    
+    if (!formData.email || !formData.password || !formData.companyName) {
+      return toast.error("Email, password, and company name are required");
     }
 
     try {
-      const response = await api.post("/auth/esignup", {
-        username,
-        password,
-        email,
-      });
-
-      console.log(response.data);
-
-      if (response.data.success) {
+      const result = await register(formData);
+      
+      if (result.success) {
         toast.success("You have signed up successfully");
         navigate("/elogin", { replace: true });
+      } else {
+        toast.error(result.error);
+        setErrorMessage(result.error);
       }
     } catch (error) {
-      toast.error(error.response.data.message);
-      setErrorMessage(error.response.data.message);
+      toast.error(error.message);
+      setErrorMessage(error.message);
     }
   }
 
@@ -48,7 +49,7 @@ const ESignup = () => {
     <section className="bg-[#E7EAFC] p-6 flex justify-center items-center h-screen">
       <div className="bg-white flex flex-col  w-[30rem] py-10 shadow-2xl rounded-lg">
         <div className="text-[#0000FF]  flex justify-around ml-40 mb-5">
-          <p className="font-bold text-xl">SIGNUP</p>
+          <p className="font-bold text-xl">EMPLOYER SIGNUP</p>
           <Link to={"/"} className="cursor-pointer ml-6">
             Home
           </Link>
@@ -83,22 +84,9 @@ const ESignup = () => {
           </div>
           <div className="flex flex-col gap-5 w-full px-10">
             <form onSubmit={handleSubmit} className="flex flex-col gap-y-5">
-              {errorMessage ? errorMessage : null}
+              {errorMessage && <div className="text-red-500">{errorMessage}</div>}
               <div>
-                <label htmlFor="">Username</label>
-                <input
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={(e) =>
-                    setFormData({ ...formData, username: e.target.value })
-                  }
-                  placeholder="Enter your username"
-                  className="border-1 border-[#1b1ba3] rounded-lg w-full h-10 p-4"
-                />
-              </div>
-              <div>
-                <label htmlFor="">Email</label>
+                <label htmlFor="email">Email *</label>
                 <input
                   type="email"
                   name="email"
@@ -106,12 +94,13 @@ const ESignup = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  placeholder="Enter your username"
+                  placeholder="Enter your email"
                   className="border-1 border-[#1b1ba3] rounded-lg w-full h-10 p-4"
+                  required
                 />
               </div>
               <div className="relative">
-                <label htmlFor="">Password</label>
+                <label htmlFor="password">Password *</label>
                 <input
                   type="password"
                   name="password"
@@ -121,10 +110,59 @@ const ESignup = () => {
                   }
                   placeholder="Enter your password"
                   className="border-1 border-[#1b1ba3] rounded-lg h-10 w-full pr-12 p-4"
+                  required
                 />
                 <button className="absolute right-3 top-2/3 transform -translate-y-1/2">
                   <FaRegEyeSlash />
                 </button>
+              </div>
+              
+              <div>
+                <label htmlFor="companyName">Company Name *</label>
+                <input
+                  type="text"
+                  name="companyName"
+                  value={formData.companyName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, companyName: e.target.value })
+                  }
+                  placeholder="Enter your company name"
+                  className="border-1 border-[#1b1ba3] rounded-lg w-full h-10 p-4"
+                  required
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="industry">Industry</label>
+                <input
+                  type="text"
+                  name="industry"
+                  value={formData.industry}
+                  onChange={(e) =>
+                    setFormData({ ...formData, industry: e.target.value })
+                  }
+                  placeholder="Enter your industry"
+                  className="border-1 border-[#1b1ba3] rounded-lg w-full h-10 p-4"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="companySize">Company Size</label>
+                <select
+                  name="companySize"
+                  value={formData.companySize}
+                  onChange={(e) =>
+                    setFormData({ ...formData, companySize: e.target.value })
+                  }
+                  className="border-1 border-[#1b1ba3] rounded-lg w-full h-10 p-4"
+                >
+                  <option value="">Select company size</option>
+                  <option value="1-10">1-10 employees</option>
+                  <option value="11-50">11-50 employees</option>
+                  <option value="51-100">51-100 employees</option>
+                  <option value="101-500">101-500 employees</option>
+                  <option value="500+">500+ employees</option>
+                </select>
               </div>
               <button
                 type="submit"

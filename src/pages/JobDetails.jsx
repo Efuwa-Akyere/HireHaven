@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { AuthContext } from '../App';
+import { useAuth } from '../contexts/AuthContext';
 
 const JobDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
   
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
