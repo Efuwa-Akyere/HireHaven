@@ -30,6 +30,10 @@ import Employers from "./pages/adminDashboard/components/Employers.jsx";
 import Statistics from "./pages/adminDashboard/components/Statistics.jsx";
 import Welcome from "./pages/adminDashboard/Welcome.jsx";
 import About from "./pages/aboutPage/about.jsx";
+import AForgotPassword from "./components/Admin/AForgotPassword.jsx";
+import EForgotPassword from "./components/Employer/EForgotPassword.jsx";
+import AResetPassword from "./components/Admin/AResetPassword.jsx";
+import EResetPassword from "./components/Employer/EResetPassword.jsx";
 
 // Context for user authentication
 export const AuthContext = React.createContext();
@@ -105,6 +109,22 @@ function App() {
     {
       path: "contactus",
       element: <ContactUs />,
+    },
+    {
+      path: '/aforgotpassword',
+      element: <AForgotPassword />
+    },
+    {
+      path: 'eforgotpassword',
+      element: <EForgotPassword />
+    },
+    {
+      path: 'aresetpassword/:token',
+      element: <AResetPassword />
+    },
+    {
+      path: 'eresetpassword/:token',
+      element: <EResetPassword />
     },
 
     {

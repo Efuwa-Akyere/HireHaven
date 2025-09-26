@@ -42,6 +42,14 @@ const ALogin = () => {
     }
   }
 
+  async function handleGooglelogin() {
+    window.location.href = `${import.meta.env.VITE_API_URL}auth/google`;
+  }
+
+  async function handleLinkedinLogin() {
+    window.location.href = `${import.meta.env.VITE_API_URL}auth/linkedin`;
+  }
+
   return (
     <section className="bg-[#E7EAFC] p-6 flex justify-center items-center h-screen">
       <div className="bg-white flex flex-col  w-[30rem] py-10 shadow-2xl rounded-lg">
@@ -56,15 +64,15 @@ const ALogin = () => {
             <p>Use your social accounts to signup</p>
           </div>
           <div className="flex gap-5 justify-center">
-            <div>
+            <button type="button" onClick={handleGooglelogin} className="cursor-pointer">
               <FcGoogle size={25} />
-            </div>
-            <div className="text-[#0000FF]">
+            </button>
+            <button className="text-[#0000FF]">
               <FaFacebook size={25} />
-            </div>
-            <div className="text-[#0505ac]">
+            </button>
+            <button type="button" onClick={handleLinkedinLogin} className="text-[#0505ac] cursor-pointer">
               <FaLinkedin size={25} />
-            </div>
+            </button>
           </div>
           <div className="flex text-gray-400 justify-center">
             <div className="flex self-center ">
