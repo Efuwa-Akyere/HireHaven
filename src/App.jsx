@@ -29,6 +29,10 @@ import Applicants from "./pages/adminDashboard/components/Applicants.jsx";
 import Employers from "./pages/adminDashboard/components/Employers.jsx";
 import Statistics from "./pages/adminDashboard/components/Statistics.jsx";
 import Welcome from "./pages/adminDashboard/Welcome.jsx";
+import AForgotPassword from "./components/Admin/AForgotPassword.jsx";
+import EForgotPassword from "./components/Employer/EForgotPassword.jsx";
+import AResetPassword from "./components/Admin/AResetPassword.jsx";
+import EResetPassword from "./components/Employer/EResetPassword.jsx";
 import About from "./pages/aboutPage/About.jsx";
 
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
@@ -65,6 +69,22 @@ const AppContent = () => {
     { path: "/alogin", element: <ALogin /> },
     { path: "/about", element: <About /> },
     { path: "/contactus", element: <ContactUs /> },
+    {
+      path: '/aforgotpassword',
+      element: <AForgotPassword />
+    },
+    {
+      path: 'eforgotpassword',
+      element: <EForgotPassword />
+    },
+    {
+      path: 'aresetpassword/:token',
+      element: <AResetPassword />
+    },
+    {
+      path: 'eresetpassword/:token',
+      element: <EResetPassword />
+    },
 
     {
       path: "/rootlayout",
