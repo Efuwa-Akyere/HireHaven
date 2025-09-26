@@ -29,87 +29,46 @@ import Applicants from "./pages/adminDashboard/components/Applicants.jsx";
 import Employers from "./pages/adminDashboard/components/Employers.jsx";
 import Statistics from "./pages/adminDashboard/components/Statistics.jsx";
 import Welcome from "./pages/adminDashboard/Welcome.jsx";
-import About from "./pages/aboutPage/about.jsx";
 import AForgotPassword from "./components/Admin/AForgotPassword.jsx";
 import EForgotPassword from "./components/Employer/EForgotPassword.jsx";
 import AResetPassword from "./components/Admin/AResetPassword.jsx";
 import EResetPassword from "./components/Employer/EResetPassword.jsx";
+import About from "./pages/aboutPage/About.jsx";
 
-// Context for user authentication
-export const AuthContext = React.createContext();
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { LoadingSpinner } from "./components/LoadingSpinner";
 
-function App() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+// Context for user authentication (legacy) - removed duplicate export
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      verifyToken();
-    } else {
-      setLoading(false);
-    }
-  }, []);
-
-  const verifyToken = async () => {
-    try {
-      const response = await axios.get("/api/auth/verify");
-      setUser(response.data.user);
-    } catch (error) {
-      localStorage.removeItem("token");
-      delete axios.defaults.headers.common["Authorization"];
-    } finally {
-      setLoading(false);
-    }
-  };
+const AppContent = () => {
+  const { isAuthenticated, user, loading } = useAuth();
 
   if (loading) {
     return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-        <p>Loading...</p>
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#f8fafc",
+        }}
+      >
+        <LoadingSpinner size="large" message="Loading HireHaven..." />
       </div>
     );
   }
 
   const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <HomePage />,
-    },
-    {
-      path: "/jsignup",
-      element: <JsignUp />,
-    },
-    {
-      path: "jlogin",
-      element: <JLogin />,
-    },
-    {
-      path: "esignup",
-      element: <ESignup />,
-    },
-    {
-      path: "elogin",
-      element: <ELogin />,
-    },
-    {
-      path: "asignup",
-      element: <ASignup />,
-    },
-    {
-      path: "alogin",
-      element: <ALogin />,
-    },
-    {
-      path: "about",
-      element: <About />,
-    },
-    {
-      path: "contactus",
-      element: <ContactUs />,
-    },
+    { path: "/", element: <HomePage /> },
+    { path: "/jsignup", element: <JsignUp /> },
+    { path: "/jlogin", element: <JLogin /> },
+    { path: "/esignup", element: <ESignup /> },
+    { path: "/elogin", element: <ELogin /> },
+    { path: "/asignup", element: <ASignup /> },
+    { path: "/alogin", element: <ALogin /> },
+    { path: "/about", element: <About /> },
+    { path: "/contactus", element: <ContactUs /> },
     {
       path: '/aforgotpassword',
       element: <AForgotPassword />
@@ -128,40 +87,45 @@ function App() {
     },
 
     {
-      path: "rootlayout",
+      path: "/rootlayout",
       element: <RootLayout />,
       children: [
-        {
-          index: true,
-          element: <Welcome />,
-        },
-        {
-          path: "applicants",
-          element: <Applicants />,
-        },
-        {
-          path: "employers",
-          element: <Employers />,
-        },
-        {
-          path: "statistics",
-          element: <Statistics />,
-        },
+        { index: true, element: <Welcome /> },
+        { path: "applicants", element: <Applicants /> },
+        { path: "employers", element: <Employers /> },
+        { path: "statistics", element: <Statistics /> },
       ],
     },
     {
       path: "/dashboard",
-      element: (
-        // user ? (
-        //   user.userType === "jobseeker" ? (
+      element: loading ? (
+        <LoadingSpinner />
+      ) : user?.userType === "jobseeker" ? (
         <JobSeekerDashboard />
+      ) : user?.userType === "employer" ? (
+        <EmployerDashboard />
+      ) : (
+        <Navigate to="/jlogin" />
       ),
-      //   ) : (
-      //     <EmployerDashboard />
-      //   )
-      // ) : (
-      //   <Navigate to="/jlogin" />
-      // ),
+    },
+    {
+      path: "/jobseeker/dashboard",
+      element: loading ? (
+        <LoadingSpinner />
+      ) : user?.userType === "jobseeker" ? (
+        <JobSeekerDashboard />
+      ) : (
+        <Navigate to="/jlogin" />
+      ),
+    },
+    {
+      path: "/employer/dashboard",
+      element:
+        user?.userType === "employer" ? (
+          <EmployerDashboard />
+        ) : (
+          <Navigate to="/elogin" />
+        ),
     },
     {
       path: "/profile",
@@ -178,11 +142,24 @@ function App() {
     },
   ]);
 
+  return <RouterProvider router={router} />;
+};
+
+const App = () => {
   return (
-    <div className="App">
-      <RouterProvider router={router} />{" "}
-    </div>
+    <AuthProvider>
+      <div
+        style={{
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          lineHeight: 1.5,
+          color: "#1e293b",
+        }}
+      >
+        <AppContent />
+      </div>
+    </AuthProvider>
   );
-}
+};
 
 export default App;

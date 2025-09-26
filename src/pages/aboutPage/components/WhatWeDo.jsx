@@ -1,5 +1,5 @@
 import Pic1 from "../../../assets/images/HeadShot2.jpg";
-import Pic2 from "../../../assets/images/HeadShot3.jpg";
+import Pic2 from "../../../assets/images/Headshot3.jpg";
 import { BiCategory } from "react-icons/bi";
 import Pic3 from '../../../assets/images/WedoPic1.jpg'
 import { FaSearch } from "react-icons/fa";
